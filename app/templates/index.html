@@ -11,6 +11,8 @@
   {% endif %}
 </head>
 
+<h1> {{ message }}</h1>
+
 <body>
   <!-- Popular movie section  -->
   <h3> Popular Movies</h3>
@@ -22,24 +24,24 @@
     {{ macro.displayMovieList(popular) }}
   </ul>
 
-       <!-- Upcoming movie  -->
-       <h3> Upcoming Movies </h3>
-       <ul>
-          <!-- {% for upcoming_movie in upcoming %}
+  <!-- Upcoming movie  -->
+  <h3> Upcoming Movies </h3>
+  <ul>
+    <!-- {% for upcoming_movie in upcoming %}
               <li>{{ upcoming_movie.title}}</li>
           {% endfor %} -->
-            {{ macro.displayMovieList(upcoming) }}
-      </ul>
+    {{ macro.displayMovieList(upcoming) }}
+  </ul>
 
-      <!-- Now showing movie -->
-      <h3>Now Showing</h3>
-       <ul>
-          <!-- {% for now_showing_movie in now_showing %}
+  <!-- Now showing movie -->
+  <h3>Now Showing</h3>
+  <ul>
+    <!-- {% for now_showing_movie in now_showing %}
               <li>{{ now_showing_movie.title}}</li>
           {% endfor %} -->
 
-          {{ macro.displayMovieList(now_showing) }}
-      </ul>
+    {{ macro.displayMovieList(now_showing) }}
+  </ul>
 
 </body>
 
