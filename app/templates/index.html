@@ -1,58 +1,42 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macro%}
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  {% if title %}
-  <title> {{ title }}</title>
-  {% else %}
-  <title> Welcome to the best Movie Review website </title>
-  {% endif %}
-</head>
-
-<h1> {{ message }}</h1>
-
-<body>
 
   <!-- Styles block -->
 
   {% block styles%}
-  {{ super() }}
-  <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-  {% endblock %}
+    {{ super() }}
+      <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    {% endblock %}
 
   {% block content %}
-  <!-- Popular movie section  -->
-  <h3> Popular Movies</h3>
-  <ul>
-    <!-- {% for popular_movie in popular %}
-    <li>{{ popular_movie.title }}</li>
-    {% endfor %} -->
 
-    {{ macro.displayMovieList(popular) }}
-  </ul>
+  <div class="container">
 
-  <!-- Upcoming movie  -->
-  <h3> Upcoming Movies </h3>
-  <ul>
-    <!-- {% for upcoming_movie in upcoming %}
-              <li>{{ upcoming_movie.title}}</li>
-          {% endfor %} -->
-    {{ macro.displayMovieList(upcoming) }}
-  </ul>
+    <!-- Popular movie -->
+    <div class="row">
+        <h3> Popular Movies</h3>
+        <ul>
+            {{ macro.displayMovieList(popular)}}
+        </ul>
+    </div>
+    <!-- Upcoming movie  -->
+    <div class="row">
 
-  <!-- Now showing movie -->
-  <h3>Now Showing</h3>
-  <ul>
-    <!-- {% for now_showing_movie in now_showing %}
-              <li>{{ now_showing_movie.title}}</li>
-          {% endfor %} -->
+        <h3> Upcoming Movies </h3>
+        <ul>
+            {{ macro.displayMovieList(upcoming)}}
+        </ul>
+    </div>
 
-    {{ macro.displayMovieList(now_showing) }}
-  </ul>
+    <!-- Now showing movie -->
+    <div class="row">
+
+        <h3>Now Showing</h3>
+        <ul>
+            {{ macro.displayMovieList(now_showing)}}
+        </ul>
+    </div>
+
+</div>
+
   {% endblock %}
-</body>
-
-</html>

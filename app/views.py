@@ -17,7 +17,7 @@ def index():
     message = 'Welcome to Tazama'
     return render_template('index.html',message = message,title = title,popular = popular_movies, upcoming = upcoming_movie,now_showing= now_showing_movie)
 
-@app.route('/movie/<int:movie_id>')
+@app.route('/movie/<int:id>')
 def movie(id):
 
     '''
@@ -25,4 +25,4 @@ def movie(id):
     '''
     movie = get_movie(id)
     title = f'{movie.title}'
-    return render_template('movie.html',movie = movie)
+    return render_template('movie.html',title = title,movie = movie)
