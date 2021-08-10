@@ -1,6 +1,5 @@
 import unittest
-from app.models import Movie
-# Movie = movie.Movie
+from app.models import Movie, Review
 
 class MovieTest(unittest.TestCase):
     '''
@@ -21,11 +20,21 @@ class MovieTest(unittest.TestCase):
         self.assertEqual(self.new_movie.title,"Python Must Be Crazy")
         self.assertEqual(self.new_movie.overview,"A thrilling new Python Series")
         # Check on the link test is failing
-        self.assertEqual(self.new_movie.poster,"https://image.tmdb.org/t/p/w500/khsjha27hbs")    
+        self.assertEqual(self.new_movie.poster,'https://image.tmdb.org/t/p/w500/khsjha27hbs')    
         self.assertEqual(self.new_movie.vote_average,8.5)
         self.assertEqual(self.new_movie.vote_count, 129993)
+        
         self.assertTrue(isinstance(self.new_movie,Movie))
 
+    def  tearDown(self):
+        '''
+        tearDown method to refresh the user and cred list
+        '''
 
-# if __name__ == '__main__':
-#     unittest.main()
+        Review.review_list = []
+        Movie.movie_list = []
+
+
+
+if __name__ == '__main__':
+    unittest.main()
