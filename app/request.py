@@ -12,7 +12,6 @@ def configure_request(app):
     # api_key = '8754b90a17ca455936d7cd7376d541ed'
    
     base_url = app.config["MOVIE_API_BASE_URL"]
-    # base_url = https://api.themoviedb.org/3/movie/{}?api_key={}'
 
 
 def get_movies(category):
