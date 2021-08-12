@@ -4,7 +4,8 @@ from ..models import Review,User
 from .forms import ReviewForm,UpdateProfile
 from .. import db,photos
 from . import main
-from flask_login import login_required
+from flask_login import login_required,current_user
+import markdown2 
 
 
 # Views
@@ -61,7 +62,10 @@ def new_review(id):
     if form.validate_on_submit():
         title = form.title.data
         review = form.review.data
-        new_review = Review(movie.id,title,movie.poster,review)
+
+        # Updated review instance
+        new_review = Review(movie_id=movie.id,movie_title=title,image_path=movie.poster,movie_review=review,user=current_user)
+
         new_review.save_review()
         return redirect(url_for('main.movie',id = movie.id ))
 
@@ -96,14 +100,27 @@ def update_profile(uname):
 
     return render_template('profile/update.html',form =form)
 
-@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@main.route('/user/<uname>/update/pic',methods= ['GET','POST'])
 @login_required
 def update_pic(uname):
     user = User.query.filter_by(username = uname).first()
-    if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
-        print(user.profile_pic_path)
-        db.session.commit()
+
+    if request.method == 'POST':
+        if request.files:
+            if 'photo' in request.files:
+                    filename = photos.save(request.files['photo'])
+                    path = f'photos/{filename}'
+                    user.profile_pic_path = path
+                    print(user.profile_pic_path)
+                    db.session.add(user)
+                    db.session.commit()
+                    
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/review/<int:id>')
+def single_review(id):
+    review=Review.query.get(id)
+    if review is None:
+        abort(404)
+    format_review = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('review.html',review = review,format_review=format_review)
