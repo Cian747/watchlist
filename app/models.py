@@ -71,11 +71,11 @@ class User(UserMixin,db.Model):
 
     @password.setter
     def password(self, password):
-        self.pass_secure = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)
 
 
     def verify_password(self,password):
-        return check_password_hash(self.pass_secure,password)   
+        return check_password_hash(self.password_hash,password)   
 
 
     @login_manager.user_loader
