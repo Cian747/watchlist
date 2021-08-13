@@ -35,8 +35,8 @@ class Review(db.Model):
     movie_review = db.Column(db.String)
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    upVote = db.Column(db.Integer)
-    downVote = db.Column(db.Integer)
+    upVote = db.Column(db.Integer, default= 0)
+    downVote = db.Column(db.Integer, default= 0)
     
     def save_review(self):
         db.session.add(self)
@@ -44,8 +44,17 @@ class Review(db.Model):
 
     @classmethod
     def get_reviews(cls,id):
-        reviews = Review.query.filter_by(movie_id=id).all()
+        reviews = Review.query.filter_by(movie_id = id).all()
         return reviews
+
+    def count_up(id):
+        review = Review.query.filter_by(movie_id = id).all()
+        review.upVote = review.upVote + 1
+        db.session.add(review)
+        db.session.commit()
+
+    def count_down(self):
+        review = Review.query.filter_by(movie_id = id).all()
 
 
 class User(UserMixin,db.Model):

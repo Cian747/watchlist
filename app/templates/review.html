@@ -8,6 +8,13 @@
       <img src="{{review.image_path}}" class="img-responsive">
     </div>
 
+    <div class="vote" style="margin: 3rem; font-size: 15px">
+      <a href="{{url_for('main.thumbs_up', id = review.id)}}"><button class="btn btn-outline-primary" >upVote</button></a>
+      <p>{{ review.upVote }}</p>
+      <a href="{{url_for('main.thumbs_down', id = review.id)}}"><button class="btn btn-outline-danger" >Downvote</button></a>
+      <p>{{ review.downVote }}</p>
+    </div>
+
     <div class="col-sm-8">
       {{format_review|safe}}
     </div>

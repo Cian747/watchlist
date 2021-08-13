@@ -124,3 +124,19 @@ def single_review(id):
         abort(404)
     format_review = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
     return render_template('review.html',review = review,format_review=format_review)
+
+@main.route('/review/<int:id>',methods = ['GET','POST'])
+def thumbs_up(id):
+    review = Review.query.get(id)
+    if review.upVote is None:
+        review.count_up()
+        db.session.add(review)
+        db.session.commit()
+
+
+@main.route('/review/<int:id>',methods = ['GET','POST'])
+def thumbs_down(id):
+    review = Review.query.get(id)
+    review.downVote = review.downVote + 1
+    db.session.add(review)
+    db.session.commit()
