@@ -10,6 +10,10 @@ manager = Manager(app)
 
 manager.add_command('server',Server)
 
+@manager.before_first_request
+def create_tables():
+    db.create_all()
+
 @manager.command
 def test():
     """
